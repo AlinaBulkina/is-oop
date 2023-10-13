@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment;
 using Itmo.ObjectOrientedProgramming.Lab1.Ships;
 using Xunit;
+#pragma warning disable CA1707
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 
@@ -39,25 +40,27 @@ public class Tests
 
     [Theory]
     [MemberData(nameof(FirstTestShips))]
-    public void FirstTest(ShipBase shuttle, ShipBase avgur)
+    public void Choose_ShuttleOrAvgurInHighDensityNebula_ChooseNone(ShipBase shuttle, ShipBase avgur)
     {
         var route = new Route();
-        route.AddPart(new HighDensityNebula(0));
+        route.AddPart(new HighDensityNebula(0, 2));
         var trip = new Trip(route);
 
         Result result1 = trip.TryShip(shuttle);
         Result result2 = trip.TryShip(avgur);
 
         Assert.False(result1.TripIsSuccessful);
-        Assert.True(result2.TripIsSuccessful);
+        Assert.False(result2.TripIsSuccessful);
+        Assert.Null(trip.CompareResults());
     }
 
     [Theory]
     [MemberData(nameof(SecondTestShips))]
-    public void SecondTest(ShipBase vaklas1, ShipBase vaklas2)
+    public void Choose_VaklasWithOrWithoutPhotonModInHighDensityNebula_ChooseWithPhotonMod(
+        ShipBase vaklas1, ShipBase vaklas2)
     {
         var route = new Route();
-        route.AddPart(new HighDensityNebula(1));
+        route.AddPart(new HighDensityNebula(1, 1));
         var trip = new Trip(route);
 
         Result result1 = trip.TryShip(vaklas1);
@@ -65,11 +68,13 @@ public class Tests
 
         Assert.False(result1.TripIsSuccessful);
         Assert.True(result2.TripIsSuccessful);
+        Assert.Equal("Vaklas", trip.CompareResults());
     }
 
     [Theory]
     [MemberData(nameof(ThirdTestShips))]
-    public void ThirdTest(ShipBase vaklas, ShipBase avgur, ShipBase meredian)
+    public void Choose_ValkasOrAvgurOrMeredianInNitrineNebula_ChooseMeredian(
+        ShipBase vaklas, ShipBase avgur, ShipBase meredian)
     {
         var route = new Route();
         route.AddPart(new NitrineNebula(1));
@@ -79,13 +84,14 @@ public class Tests
         Result result2 = trip.TryShip(avgur);
         Result result3 = trip.TryShip(meredian);
 
-        Assert.False(result1.TripIsSuccessful);
+        Assert.True(result1.TripIsSuccessful);
         Assert.True(result2.TripIsSuccessful);
         Assert.True(result3.TripIsSuccessful);
+        Assert.Equal("Meredian", trip.CompareResults());
     }
 
     [Fact]
-    public void Test4()
+    public void Choose_ShuttleOrVaklasInSpace_ChooseShuttle()
     {
         var route = new Route();
         route.AddPart(new Space(1, 0));
@@ -98,14 +104,14 @@ public class Tests
 
         Assert.True(result1.TripIsSuccessful);
         Assert.True(result2.TripIsSuccessful);
-        Assert.True(result1.Cost < result2.Cost);
+        Assert.Equal("Shuttle", trip.CompareResults());
     }
 
     [Fact]
-    public void Test5()
+    public void Choose_AvgurOrStellaInHighDensityNebula_ChooseShuttle()
     {
         var route = new Route();
-        route.AddPart(new HighDensityNebula(0));
+        route.AddPart(new HighDensityNebula(0, 2));
         var trip = new Trip(route);
         ShipBase avgur = new Avgur();
         ShipBase stella = new Stella();
@@ -113,12 +119,13 @@ public class Tests
         Result result1 = trip.TryShip(avgur);
         Result result2 = trip.TryShip(stella);
 
-        Assert.True(result1.TripIsSuccessful);
+        Assert.False(result1.TripIsSuccessful);
         Assert.True(result2.TripIsSuccessful);
+        Assert.Equal("Stella", trip.CompareResults());
     }
 
     [Fact]
-    public void Test6()
+    public void Choose_ShuttleOrVaklasInNitrineNebula_ChooseVaklas()
     {
         var route = new Route();
         route.AddPart(new NitrineNebula(0));
@@ -131,32 +138,6 @@ public class Tests
 
         Assert.False(result1.TripIsSuccessful);
         Assert.True(result2.TripIsSuccessful);
-    }
-
-    [Fact]
-    public void Test7()
-    {
-        var route = new Route();
-        route.AddPart(new NitrineNebula(0));
-        route.AddPart(new Space(2, 1));
-        route.AddPart(new HighDensityNebula(2));
-        var trip = new Trip(route);
-        ShipBase avgur = new Avgur();
-        ShipBase meredian = new Meredian();
-        ShipBase stella = new Stella();
-        ShipBase shuttle = new Shuttle();
-        ShipBase vaklas = new Vaklas();
-
-        Result result1 = trip.TryShip(avgur);
-        Result result2 = trip.TryShip(meredian);
-        Result result3 = trip.TryShip(stella);
-        Result result4 = trip.TryShip(shuttle);
-        Result result5 = trip.TryShip(vaklas);
-
-        Assert.False(result1.TripIsSuccessful);
-        Assert.False(result2.TripIsSuccessful);
-        Assert.False(result3.TripIsSuccessful);
-        Assert.False(result4.TripIsSuccessful);
-        Assert.False(result5.TripIsSuccessful);
+        Assert.Equal("Vaklas", trip.CompareResults());
     }
 }

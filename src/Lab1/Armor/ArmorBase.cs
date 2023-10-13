@@ -9,12 +9,12 @@ public class ArmorBase
 
     public void TakeDamage(ObstacleBase obstacle)
     {
-        if (obstacle == null)
+        if (obstacle is null)
         {
             throw new ArgumentNullException(nameof(obstacle));
         }
 
-        if (obstacle.GetType() == typeof(Meteorite) | obstacle.GetType() == typeof(Asteroid))
+        if (obstacle is Meteorite | obstacle is Asteroid)
         {
             if (HitPoints > obstacle.Damage)
             {

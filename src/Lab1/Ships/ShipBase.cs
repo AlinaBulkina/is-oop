@@ -2,6 +2,8 @@ using System;
 using Itmo.ObjectOrientedProgramming.Lab1.Armor;
 using Itmo.ObjectOrientedProgramming.Lab1.Deflectors;
 using Itmo.ObjectOrientedProgramming.Lab1.Engines;
+using Itmo.ObjectOrientedProgramming.Lab1.Engines.ImpulseEngines;
+using Itmo.ObjectOrientedProgramming.Lab1.Engines.JumpingEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Obstacles;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Ships;
@@ -10,22 +12,22 @@ public class ShipBase
 {
     public ShipBase(EngineBase firstEngine, EngineBase secondEngine, DeflectorBase deflector, ArmorBase armor)
     {
-        if (firstEngine == null)
+        if (firstEngine is null)
         {
             throw new ArgumentNullException(nameof(firstEngine));
         }
 
-        if (secondEngine == null)
+        if (secondEngine is null)
         {
             throw new ArgumentNullException(nameof(secondEngine));
         }
 
-        if (deflector == null)
+        if (deflector is null)
         {
             throw new ArgumentNullException(nameof(deflector));
         }
 
-        if (armor == null)
+        if (armor is null)
         {
             throw new ArgumentNullException(nameof(armor));
         }
@@ -71,10 +73,8 @@ public class ShipBase
 
     public bool HasImpulseEngine()
     {
-        if (FirstEngine.GetType() == typeof(CClassEngine) |
-            FirstEngine.GetType() == typeof(EClassEngine) |
-            SecondEngine.GetType() == typeof(CClassEngine) |
-            SecondEngine.GetType() == typeof(EClassEngine))
+        if (FirstEngine is ImpulseEngineBase |
+            SecondEngine is ImpulseEngineBase)
         {
             return true;
         }
@@ -84,8 +84,8 @@ public class ShipBase
 
     public bool HasJumpingEngine()
     {
-        if (FirstEngine.GetType() == typeof(JumpingEngineBase) |
-            SecondEngine.GetType() == typeof(JumpingEngineBase))
+        if (FirstEngine is JumpingEngineBase |
+            SecondEngine is JumpingEngineBase)
         {
             return true;
         }
@@ -93,10 +93,17 @@ public class ShipBase
         return false;
     }
 
+    public int EngineRange()
+    {
+        int range = FirstEngine.Range;
+        range = int.Max(range, SecondEngine.Range);
+        return range;
+    }
+
     public bool HasEClassEngine()
     {
-        if (FirstEngine.GetType() == typeof(EClassEngine) |
-            SecondEngine.GetType() == typeof(EClassEngine))
+        if (FirstEngine is EClassEngine |
+            SecondEngine is EClassEngine)
         {
             return true;
         }

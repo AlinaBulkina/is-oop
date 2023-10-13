@@ -5,5 +5,6 @@ public class NullEngine : EngineBase
     public NullEngine()
     {
         FuelConsumption = 0;
+        Range = 0;
     }
 }

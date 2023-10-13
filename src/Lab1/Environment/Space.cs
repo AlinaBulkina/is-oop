@@ -1,4 +1,5 @@
 using System;
+using Itmo.ObjectOrientedProgramming.Lab1.Obstacles;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment;
 
@@ -16,7 +17,8 @@ public class Space : EnvironmentBase
             throw new ArgumentOutOfRangeException(nameof(meteoriteCount));
         }
 
-        AsteroidCount = asteroidCount;
-        MeteoriteCount = meteoriteCount;
+        Asteroids = new Asteroid(asteroidCount);
+        Meteorites = new Meteorite(meteoriteCount);
+        PathLength = 0;
     }
 }

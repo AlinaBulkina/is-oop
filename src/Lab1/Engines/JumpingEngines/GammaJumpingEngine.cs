@@ -1,4 +1,4 @@
-namespace Itmo.ObjectOrientedProgramming.Lab1.Engines;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Engines.JumpingEngines;
 
 public class GammaJumpingEngine : JumpingEngineBase
 {

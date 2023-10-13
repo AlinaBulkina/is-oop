@@ -1,9 +1,13 @@
+using Itmo.ObjectOrientedProgramming.Lab1.Obstacles;
+
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment;
 
 public class EnvironmentBase
 {
-    public int MeteoriteCount { get; init; }
-    public int AsteroidCount { get; init; }
-    public int FlareCount { get; init; }
-    public int SpaceWhaleCount { get; init; }
+    public Meteorite? Meteorites { get; init; }
+    public Asteroid? Asteroids { get; init; }
+    public Flare? Flares { get; init; }
+    public SpaceWhale? SpaceWhales { get; init; }
+
+    public int PathLength { get; init; }
 }

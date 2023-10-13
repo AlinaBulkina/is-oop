@@ -1,6 +1,6 @@
 using System;
+using System.Collections.ObjectModel;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment;
-using Itmo.ObjectOrientedProgramming.Lab1.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Ships;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1;
@@ -12,11 +12,12 @@ public class Trip
         Route = route;
     }
 
+    public Collection<Result> SuccessfulResults { get; private set; } = new Collection<Result>();
     private Route Route { get; init; }
 
     public Result TryShip(ShipBase ship)
     {
-        if (ship == null)
+        if (ship is null)
         {
             throw new ArgumentNullException(nameof(ship));
         }
@@ -25,50 +26,89 @@ public class Trip
 
         foreach (EnvironmentBase environment in Route.RouteParts)
         {
-            if (environment.GetType() == typeof(Space))
+            if (environment is Space)
             {
                 if (ship.HasImpulseEngine())
                 {
-                    var asteroids = new Asteroid(environment.AsteroidCount);
-                    var meteorites = new Meteorite(environment.MeteoriteCount);
+                    if (environment.Asteroids is not null)
+                    {
+                        ship.TakeDamage(environment.Asteroids);
+                    }
 
-                    ship.TakeDamage(asteroids);
-                    ship.TakeDamage(meteorites);
+                    if (environment.Meteorites is not null)
+                    {
+                        ship.TakeDamage(environment.Meteorites);
+                    }
                 }
                 else
                 {
-                    return new Result(false, cost);
+                    return new Result(ship.ShipName, false, cost);
                 }
             }
 
-            if (environment.GetType() == typeof(HighDensityNebula))
+            if (environment is HighDensityNebula)
             {
+                if (environment.PathLength > ship.EngineRange())
+                {
+                    return new Result(ship.ShipName, false, cost);
+                }
+
                 if (ship.HasJumpingEngine())
                 {
-                    var flare = new Flare(environment.FlareCount);
-                    ship.TakeDamage(flare);
+                    if (environment.Flares is not null)
+                    {
+                        ship.TakeDamage(environment.Flares);
+                    }
                 }
                 else
                 {
-                    return new Result(false, cost);
+                    return new Result(ship.ShipName, false, cost);
                 }
             }
 
-            if (environment.GetType() == typeof(NitrineNebula))
+            if (environment is NitrineNebula)
             {
                 if (ship.HasEClassEngine())
                 {
-                    var spaceWhales = new SpaceWhale(environment.SpaceWhaleCount);
-                    ship.TakeDamage(spaceWhales);
+                    if (environment.SpaceWhales is not null)
+                    {
+                        ship.TakeDamage(environment.SpaceWhales);
+                    }
                 }
                 else
                 {
-                    return new Result(false, cost);
+                    return new Result(ship.ShipName, false, cost);
                 }
             }
         }
 
-        return new Result(ship.IsAlive, cost);
+        SuccessfulResults.Add(new Result(ship.ShipName, ship.IsAlive, cost));
+
+        return new Result(ship.ShipName, ship.IsAlive, cost);
+    }
+
+    public string? CompareResults()
+    {
+        Result? bestResult = null;
+        foreach (Result result in SuccessfulResults)
+        {
+            if (!result.TripIsSuccessful)
+            {
+                continue;
+            }
+
+            if (bestResult is null || result.Cost < bestResult.Cost)
+            {
+                bestResult = result;
+            }
+        }
+
+        if (bestResult is null)
+        {
+            return null;
+        }
+
+        return bestResult.Name;
     }
 
     private static int CalculateCost(ShipBase ship)

@@ -21,12 +21,12 @@ public class DeflectorBase
 
     public void TakeDamage(ObstacleBase obstacle)
     {
-        if (obstacle == null)
+        if (obstacle is null)
         {
             throw new ArgumentNullException(nameof(obstacle));
         }
 
-        if (obstacle.GetType() == typeof(Flare))
+        if (obstacle is Flare)
         {
             if (PhotonPoints >= obstacle.Damage)
             {
@@ -41,7 +41,7 @@ public class DeflectorBase
             }
         }
 
-        if (obstacle.GetType() == typeof(SpaceWhale))
+        if (obstacle is SpaceWhale)
         {
             if (AntiNitrine)
             {
@@ -49,20 +49,15 @@ public class DeflectorBase
             }
             else
             {
-                if (HitPoints >= obstacle.Damage)
+                if (HitPoints > 0)
                 {
-                    HitPoints -= obstacle.Damage;
-                    obstacle.TakeDamage(obstacle.Damage);
-                }
-                else
-                {
-                    obstacle.TakeDamage(HitPoints);
                     HitPoints = 0;
+                    obstacle.TakeDamage(obstacle.Damage);
                 }
             }
         }
 
-        if (obstacle.GetType() == typeof(Asteroid) | obstacle.GetType() == typeof(Meteorite))
+        if (obstacle is Asteroid or Meteorite)
         {
             if (HitPoints >= obstacle.Damage)
             {

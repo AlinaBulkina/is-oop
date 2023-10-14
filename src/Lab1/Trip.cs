@@ -42,7 +42,7 @@ public class Trip
                 }
                 else
                 {
-                    return new Result(ship.ShipName, false, cost);
+                    return new Result(ship, false, cost);
                 }
             }
 
@@ -50,7 +50,7 @@ public class Trip
             {
                 if (environment.PathLength > ship.EngineRange())
                 {
-                    return new Result(ship.ShipName, false, cost);
+                    return new Result(ship, false, cost);
                 }
 
                 if (ship.HasJumpingEngine())
@@ -62,7 +62,7 @@ public class Trip
                 }
                 else
                 {
-                    return new Result(ship.ShipName, false, cost);
+                    return new Result(ship, false, cost);
                 }
             }
 
@@ -77,17 +77,17 @@ public class Trip
                 }
                 else
                 {
-                    return new Result(ship.ShipName, false, cost);
+                    return new Result(ship, false, cost);
                 }
             }
         }
 
-        SuccessfulResults.Add(new Result(ship.ShipName, ship.IsAlive, cost));
+        SuccessfulResults.Add(new Result(ship, ship.IsAlive, cost));
 
-        return new Result(ship.ShipName, ship.IsAlive, cost);
+        return new Result(ship, ship.IsAlive, cost);
     }
 
-    public string? CompareResults()
+    public ShipBase? CompareResults()
     {
         Result? bestResult = null;
         foreach (Result result in SuccessfulResults)
@@ -108,7 +108,7 @@ public class Trip
             return null;
         }
 
-        return bestResult.Name;
+        return bestResult.Ship;
     }
 
     private static int CalculateCost(ShipBase ship)

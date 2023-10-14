@@ -1,15 +1,17 @@
+using Itmo.ObjectOrientedProgramming.Lab1.Ships;
+
 namespace Itmo.ObjectOrientedProgramming.Lab1;
 
 public class Result
 {
-    public Result(string name, bool result, int cost)
+    public Result(ShipBase ship, bool result, int cost)
     {
-        Name = name;
+        Ship = ship;
         TripIsSuccessful = result;
         Cost = cost;
     }
 
-    public string Name { get; init; }
+    public ShipBase Ship { get; init; }
     public bool TripIsSuccessful { get; init; }
     public int Cost { get; init; }
 }

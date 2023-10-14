@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 
-public class Tests
+public class TripTests
 {
     public static IEnumerable<object[]> FirstTestShips()
     {
@@ -68,7 +68,7 @@ public class Tests
 
         Assert.False(result1.TripIsSuccessful);
         Assert.True(result2.TripIsSuccessful);
-        Assert.Equal("Vaklas", trip.CompareResults());
+        Assert.Equal(vaklas2, trip.CompareResults());
     }
 
     [Theory]
@@ -87,7 +87,7 @@ public class Tests
         Assert.True(result1.TripIsSuccessful);
         Assert.True(result2.TripIsSuccessful);
         Assert.True(result3.TripIsSuccessful);
-        Assert.Equal("Meredian", trip.CompareResults());
+        Assert.Equal(meredian, trip.CompareResults());
     }
 
     [Fact]
@@ -104,7 +104,7 @@ public class Tests
 
         Assert.True(result1.TripIsSuccessful);
         Assert.True(result2.TripIsSuccessful);
-        Assert.Equal("Shuttle", trip.CompareResults());
+        Assert.Equal(shuttle, trip.CompareResults());
     }
 
     [Fact]
@@ -121,7 +121,7 @@ public class Tests
 
         Assert.False(result1.TripIsSuccessful);
         Assert.True(result2.TripIsSuccessful);
-        Assert.Equal("Stella", trip.CompareResults());
+        Assert.Equal(stella, trip.CompareResults());
     }
 
     [Fact]
@@ -138,6 +138,6 @@ public class Tests
 
         Assert.False(result1.TripIsSuccessful);
         Assert.True(result2.TripIsSuccessful);
-        Assert.Equal("Vaklas", trip.CompareResults());
+        Assert.Equal(vaklas, trip.CompareResults());
     }
 }

@@ -1,17 +1,33 @@
+using System;
+
 namespace Itmo.ObjectOrientedProgramming.Lab2.Cpu;
 
 public class Cpu
 {
     public Cpu(
-        string name,
+        string? name,
         int frequency,
         int coresNumber,
-        string socket,
+        string? socket,
         bool videoCore,
         int supportedMemoryFrequencies,
         int tdp,
         int powerConsumption)
     {
+        if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name));
+
+        if (frequency <= 0) throw new ArgumentOutOfRangeException(nameof(frequency));
+
+        if (coresNumber <= 0) throw new ArgumentOutOfRangeException(nameof(coresNumber));
+
+        if (string.IsNullOrWhiteSpace(socket)) throw new ArgumentNullException(nameof(socket));
+
+        if (supportedMemoryFrequencies <= 0) throw new ArgumentOutOfRangeException(nameof(supportedMemoryFrequencies));
+
+        if (tdp <= 0) throw new ArgumentOutOfRangeException(nameof(tdp));
+
+        if (powerConsumption <= 0) throw new ArgumentOutOfRangeException(nameof(powerConsumption));
+
         Name = name;
         Frequency = frequency;
         CoresNumber = coresNumber;
@@ -22,14 +38,16 @@ public class Cpu
         PowerConsumption = powerConsumption;
     }
 
-    public string Name { get; init; }
-    public int Frequency { get; init; }
-    public int CoresNumber { get; init; }
-    public string Socket { get; init; }
-    public bool VideoCore { get; init; }
-    public int SupportedMemoryFrequencies { get; init; }
-    public int Tdp { get; init; }
-    public int PowerConsumption { get; init; }
+    public string Name { get; }
+
+    public int Frequency { get; }
+    public int CoresNumber { get; }
+    public string Socket { get; }
+    public bool VideoCore { get; }
+    public int SupportedMemoryFrequencies { get; }
+    public int Tdp { get; }
+
+    public int PowerConsumption { get; }
 
     public Cpu Clone()
     {

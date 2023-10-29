@@ -1,5 +1,3 @@
-using System;
-
 namespace Itmo.ObjectOrientedProgramming.Lab2.VideoCard;
 
 public class VideoCardBuilder
@@ -49,36 +47,6 @@ public class VideoCardBuilder
 
     public VideoCard Build()
     {
-        if (_name is null)
-        {
-            throw new ArgumentNullException(nameof(_name));
-        }
-
-        if (_height <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(_height));
-        }
-
-        if (_width <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(_width));
-        }
-
-        if (_memory <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(_memory));
-        }
-
-        if (_frequency <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(_frequency));
-        }
-
-        if (_powerConsumption <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(_powerConsumption));
-        }
-
         return new VideoCard(_name, _height, _width, _memory, _frequency, _powerConsumption);
     }
 }

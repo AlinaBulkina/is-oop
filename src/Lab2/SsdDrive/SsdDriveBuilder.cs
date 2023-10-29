@@ -1,5 +1,3 @@
-using System;
-
 namespace Itmo.ObjectOrientedProgramming.Lab2.SsdDrive;
 
 public class SsdDriveBuilder
@@ -42,31 +40,6 @@ public class SsdDriveBuilder
 
     public SsdDrive Build()
     {
-        if (_name is null)
-        {
-            throw new ArgumentNullException(nameof(_name));
-        }
-
-        if (_connection is null)
-        {
-            throw new ArgumentNullException(nameof(_connection));
-        }
-
-        if (_capacity <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(_capacity));
-        }
-
-        if (_operatingSpeed <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(_operatingSpeed));
-        }
-
-        if (_powerConsumption <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(_powerConsumption));
-        }
-
         return new SsdDrive(_name, _connection, _capacity, _operatingSpeed, _powerConsumption);
     }
 }

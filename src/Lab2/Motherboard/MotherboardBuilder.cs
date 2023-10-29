@@ -1,5 +1,3 @@
-using System;
-
 namespace Itmo.ObjectOrientedProgramming.Lab2.Motherboard;
 
 public class MotherboardBuilder
@@ -35,26 +33,6 @@ public class MotherboardBuilder
 
     public Motherboard Build()
     {
-        if (_name is null)
-        {
-            throw new ArgumentNullException(nameof(_name));
-        }
-
-        if (_socket is null)
-        {
-            throw new ArgumentNullException(nameof(_socket));
-        }
-
-        if (_formFactor is null)
-        {
-            throw new ArgumentNullException(nameof(_formFactor));
-        }
-
-        if (_bios is null)
-        {
-            throw new ArgumentNullException(nameof(_bios));
-        }
-
         return new Motherboard(_name, _socket, _formFactor, _bios);
     }
 }

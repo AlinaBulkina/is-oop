@@ -1,5 +1,3 @@
-using System;
-
 namespace Itmo.ObjectOrientedProgramming.Lab2.Frame;
 
 public class FrameBuilder
@@ -28,21 +26,6 @@ public class FrameBuilder
 
     public Frame Build()
     {
-        if (_name is null)
-        {
-            throw new ArgumentNullException(nameof(_name));
-        }
-
-        if (_videoCardMaxHeight <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(_videoCardMaxHeight));
-        }
-
-        if (_videoCardMaxWidth <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(_videoCardMaxWidth));
-        }
-
         return new Frame(_name, _videoCardMaxHeight, _videoCardMaxWidth);
     }
 }

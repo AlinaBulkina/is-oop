@@ -1,5 +1,3 @@
-using System;
-
 namespace Itmo.ObjectOrientedProgramming.Lab2.Hdd;
 
 public class HddBuilder
@@ -35,26 +33,6 @@ public class HddBuilder
 
     public Hdd Build()
     {
-        if (_name is null)
-        {
-            throw new ArgumentNullException(nameof(_name));
-        }
-
-        if (_capacity <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(_capacity));
-        }
-
-        if (_rotatingSpeed <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(_rotatingSpeed));
-        }
-
-        if (_powerConsumption <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(_powerConsumption));
-        }
-
         return new Hdd(_name, _capacity, _rotatingSpeed, _powerConsumption);
     }
 }

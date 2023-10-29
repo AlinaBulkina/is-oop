@@ -1,9 +1,30 @@
+using System;
+
 namespace Itmo.ObjectOrientedProgramming.Lab2.Ram;
 
 public class Ram
 {
-    public Ram(string name, int availableMemory, int jedec, bool xmp, string formFactor, int ddr, int powerConsumption)
+    public Ram(
+        string? name,
+        int availableMemory,
+        int jedec,
+        bool xmp,
+        string? formFactor,
+        int ddr,
+        int powerConsumption)
     {
+        if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name));
+
+        if (availableMemory <= 0) throw new ArgumentOutOfRangeException(nameof(availableMemory));
+
+        if (jedec <= 0) throw new ArgumentOutOfRangeException(nameof(jedec));
+
+        if (string.IsNullOrWhiteSpace(formFactor)) throw new ArgumentNullException(nameof(formFactor));
+
+        if (ddr <= 0) throw new ArgumentOutOfRangeException(nameof(ddr));
+
+        if (powerConsumption <= 0) throw new ArgumentOutOfRangeException(nameof(powerConsumption));
+
         Name = name;
         AvailableMemory = availableMemory;
         Jedec = jedec;
@@ -13,13 +34,13 @@ public class Ram
         PowerConsumption = powerConsumption;
     }
 
-    public string Name { get; init; }
-    public int AvailableMemory { get; init; }
-    public int Jedec { get; init; }
-    public bool Xmp { get; init; }
-    public string FormFactor { get; init; }
-    public int Ddr { get; init; }
-    public int PowerConsumption { get; init; }
+    public string Name { get; }
+    public int AvailableMemory { get; }
+    public int Jedec { get; }
+    public bool Xmp { get; }
+    public string FormFactor { get; }
+    public int Ddr { get; }
+    public int PowerConsumption { get; }
 
     public Ram Clone()
     {

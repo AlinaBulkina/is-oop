@@ -35,26 +35,6 @@ public class CoolingSystemBuilder
 
     public CoolingSystem Build()
     {
-        if (_name is null)
-        {
-            throw new ArgumentNullException(nameof(_name));
-        }
-
-        if (_size <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(_size));
-        }
-
-        if (_socket is null)
-        {
-            throw new ArgumentNullException(nameof(_socket));
-        }
-
-        if (_tdp <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(_tdp));
-        }
-
         return new CoolingSystem(_name, _size, _socket, _tdp);
     }
 }

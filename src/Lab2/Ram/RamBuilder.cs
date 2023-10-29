@@ -1,5 +1,3 @@
-using System;
-
 namespace Itmo.ObjectOrientedProgramming.Lab2.Ram;
 
 public class RamBuilder
@@ -54,38 +52,8 @@ public class RamBuilder
         return this;
     }
 
-    public Lab2.Ram.Ram Build()
+    public Ram Build()
     {
-        if (_name is null)
-        {
-            throw new ArgumentNullException(nameof(_name));
-        }
-
-        if (_availableMemory <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(_availableMemory));
-        }
-
-        if (_jedec <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(_jedec));
-        }
-
-        if (_formFactor is null)
-        {
-            throw new ArgumentNullException(nameof(_formFactor));
-        }
-
-        if (_ddr <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(_ddr));
-        }
-
-        if (_powerConsumption <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(_powerConsumption));
-        }
-
-        return new Lab2.Ram.Ram(_name, _availableMemory, _jedec, _xmp, _formFactor, _ddr, _powerConsumption);
+        return new Ram(_name, _availableMemory, _jedec, _xmp, _formFactor, _ddr, _powerConsumption);
     }
 }

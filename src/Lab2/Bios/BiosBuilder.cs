@@ -1,5 +1,3 @@
-using System;
-
 namespace Itmo.ObjectOrientedProgramming.Lab2.Bios;
 
 public class BiosBuilder
@@ -21,16 +19,6 @@ public class BiosBuilder
 
     public Bios Build()
     {
-        if (_name is null)
-        {
-            throw new ArgumentNullException(nameof(_name));
-        }
-
-        if (_availableCpu is null)
-        {
-            throw new ArgumentNullException(nameof(_availableCpu));
-        }
-
         return new Bios(_name, _availableCpu);
     }
 }

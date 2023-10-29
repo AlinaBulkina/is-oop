@@ -1,5 +1,3 @@
-using System;
-
 namespace Itmo.ObjectOrientedProgramming.Lab2.Cpu;
 
 public class CpuBuilder
@@ -63,41 +61,6 @@ public class CpuBuilder
 
     public Cpu Build()
     {
-        if (_name is null)
-        {
-            throw new ArgumentNullException(nameof(_name));
-        }
-
-        if (_frequency <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(_frequency));
-        }
-
-        if (_coresNumber <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(_coresNumber));
-        }
-
-        if (_socket is null)
-        {
-            throw new ArgumentNullException(nameof(_socket));
-        }
-
-        if (_supportedMemoryFrequencies <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(_supportedMemoryFrequencies));
-        }
-
-        if (_tdp <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(_tdp));
-        }
-
-        if (_powerConsumption <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(_powerConsumption));
-        }
-
         return new Cpu(
             _name,
             _frequency,

@@ -2,11 +2,11 @@ using System;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Displays;
 
-public class DisplayDriver
+public class ConsoleDriver : IConsoleDriver
 {
-    public ConsoleColor Color { get; set; } = ConsoleColor.Black;
+    public ConsoleColor Color { get; private set; } = ConsoleColor.Black;
 
-    public string Text { get; set; } = string.Empty;
+    public string Text { get; private set; } = string.Empty;
 
     public void SetColor(ConsoleColor color)
     {

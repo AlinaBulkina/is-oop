@@ -1,25 +1,25 @@
 using System;
+using Itmo.ObjectOrientedProgramming.Lab3.Addressee.Filters;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
 
 public class ProxyAddressee : IAddressee
 {
-    public ProxyAddressee(IAddressee addressee, int minImportanceLevel = 3)
-    {
-        Addressee = addressee ?? throw new ArgumentNullException(nameof(addressee));
-        MinImportanceLevel = minImportanceLevel;
-    }
+    private readonly IFilter _filter;
 
-    public int MinImportanceLevel { get; init; }
-    private IAddressee Addressee { get; init; }
+    private readonly IAddressee _addressee;
+
+    public ProxyAddressee(IAddressee addressee, IFilter filer)
+    {
+        _addressee = addressee ?? throw new ArgumentNullException(nameof(addressee));
+        _filter = filer ?? throw new ArgumentNullException(nameof(filer));
+    }
 
     public void ReceiveMessage(Message message)
     {
-        if (message == null) throw new ArgumentNullException(nameof(message));
-
-        if (message.ImportanceLevel >= MinImportanceLevel)
+        if (_filter.Filter(message))
         {
-            Addressee.ReceiveMessage(message);
+            _addressee.ReceiveMessage(message);
         }
     }
 }

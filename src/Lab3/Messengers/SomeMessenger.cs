@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Messengers;
 
-public class SomeMessenger : IMessenger
+public class SomeMessenger : ISomeMessenger
 {
-    private readonly ICollection<Message> _messages = new List<Message>();
+    private readonly ICollection<string> _messages = new List<string>();
 
-    public void ReceiveMessage(Message message)
+    public void ReceiveMessage(string message)
     {
         if (message is null)
         {
@@ -20,9 +20,9 @@ public class SomeMessenger : IMessenger
     public void PrintMessages()
     {
         Console.WriteLine("Messenger: ");
-        foreach (Message message in _messages)
+        foreach (string message in _messages)
         {
-            Console.WriteLine(message.Body);
+            Console.WriteLine(message);
         }
     }
 }

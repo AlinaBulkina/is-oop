@@ -1,11 +1,11 @@
 using System;
-using Itmo.ObjectOrientedProgramming.Lab3.Displays;
+using Console = Itmo.ObjectOrientedProgramming.Lab3.Displays.Console;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
 
 public class DisplayAddressee : IAddressee
 {
-    private readonly Display _display = new();
+    private readonly Console _console = new();
 
     public void ReceiveMessage(Message message)
     {
@@ -14,6 +14,6 @@ public class DisplayAddressee : IAddressee
             throw new ArgumentNullException(nameof(message));
         }
 
-        _display.DisplayDriver.SetText(message.Body);
+        _console.ConsoleDriver.SetText(message.Body);
     }
 }

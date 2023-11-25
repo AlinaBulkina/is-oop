@@ -10,7 +10,7 @@ public class GroupAddressee : IAddressee
         Addressees = addressees ?? throw new ArgumentNullException(nameof(addressees));
     }
 
-    public Collection<IAddressee> Addressees { get; }
+    private Collection<IAddressee> Addressees { get; }
 
     public void ReceiveMessage(Message message)
     {

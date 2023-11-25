@@ -7,7 +7,7 @@ public class UserAddressee : IAddressee
         User = user;
     }
 
-    private User User { get; init; }
+    private User User { get; }
 
     public void ReceiveMessage(Message message)
     {

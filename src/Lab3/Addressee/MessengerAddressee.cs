@@ -5,17 +5,17 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
 
 public class MessengerAddressee : IAddressee
 {
+    private readonly IMessenger _messenger;
+
     public MessengerAddressee(IMessenger messenger)
     {
-        Messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+        _messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
     }
-
-    public IMessenger Messenger { get; init; }
 
     public void ReceiveMessage(Message message)
     {
         if (message is null) throw new ArgumentNullException(nameof(message));
 
-        Messenger.ReceiveMessage(message);
+        _messenger.ReceiveMessage(message);
     }
 }

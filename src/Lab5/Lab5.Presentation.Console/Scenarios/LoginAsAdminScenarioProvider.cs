@@ -3,13 +3,13 @@ using Lab5.Application.Contracts.Clients;
 
 namespace Lab5.Presentation.Console.Scenarios;
 
-public class LoginScenarioProvider : IScenarioProvider
+public class LoginAsAdminScenarioProvider : IScenarioProvider
 {
-    private readonly IUserService _service;
+    private readonly IAdminService _service;
     private readonly ICurrentClientService _currentClient;
 
-    public LoginScenarioProvider(
-        IUserService service,
+    public LoginAsAdminScenarioProvider(
+        IAdminService service,
         ICurrentClientService currentClient)
     {
         _service = service;
@@ -25,7 +25,7 @@ public class LoginScenarioProvider : IScenarioProvider
             return false;
         }
 
-        scenario = new LoginScenario(_service);
+        scenario = new LoginAsAdminScenario(_service);
         return true;
     }
 }

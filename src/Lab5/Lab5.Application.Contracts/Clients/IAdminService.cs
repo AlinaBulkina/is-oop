@@ -4,5 +4,6 @@ namespace Lab5.Application.Contracts.Clients;
 
 public interface IAdminService
 {
-    LoginResult Login(string systemPassword);
+    Task<LoginResult> Login(string systemPassword);
+    void AddAccount(long accountNumber, long accountPin);
 }

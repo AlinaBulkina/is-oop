@@ -6,12 +6,10 @@ using Spectre.Console;
 
 var collection = new ServiceCollection();
 
-collection
-    .AddApplication()
-    .AddInfrastructureDataAccess(configuration =>
+collection.AddApplication().AddInfrastructureDataAccess(configuration =>
     {
         configuration.Host = "localhost";
-        configuration.Port = 5432;
+        configuration.Port = 6432;
         configuration.Username = "postgres";
         configuration.Password = "postgres";
         configuration.Database = "postgres";
@@ -22,8 +20,9 @@ collection
 ServiceProvider provider = collection.BuildServiceProvider();
 using IServiceScope scope = provider.CreateScope();
 
-ScenarioRunner scenarioRunner = scope.ServiceProvider
-    .GetRequiredService<ScenarioRunner>();
+scope.UseInfrastructureDataAccess();
+
+ScenarioRunner scenarioRunner = scope.ServiceProvider.GetRequiredService<ScenarioRunner>();
 
 while (true)
 {

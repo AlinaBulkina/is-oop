@@ -8,6 +8,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddApplication(this IServiceCollection collection)
     {
         collection.AddScoped<IUserService, UserService>();
+        collection.AddScoped<IAdminService, AdminService>();
 
         collection.AddScoped<CurrentClientManager>();
         collection.AddScoped<ICurrentClientService>(

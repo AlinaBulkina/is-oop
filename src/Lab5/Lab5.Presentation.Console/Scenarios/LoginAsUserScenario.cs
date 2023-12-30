@@ -4,21 +4,21 @@ using Spectre.Console;
 
 namespace Lab5.Presentation.Console.Scenarios;
 
-public class LoginScenario : IScenario
+public class LoginAsUserScenario : IScenario
 {
     private readonly IUserService _userService;
 
-    public LoginScenario(IUserService userService)
+    public LoginAsUserScenario(IUserService userService)
     {
         _userService = userService;
     }
 
     public string Name => "Login as user";
 
-    public async Task<Task> Run()
+    public async Task Run()
     {
-        string accountNumber = AnsiConsole.Ask<string>("Enter your account number");
-        string pin = AnsiConsole.Ask<string>("Enter your pin");
+        long accountNumber = AnsiConsole.Ask<long>("Enter your account number");
+        long pin = AnsiConsole.Ask<long>("Enter your pin");
 
         LoginResult result = await _userService.Login(accountNumber, pin).ConfigureAwait(false);
 
@@ -31,6 +31,5 @@ public class LoginScenario : IScenario
 
         AnsiConsole.WriteLine(message);
         AnsiConsole.Ask<string>("Ok");
-        return Task.CompletedTask;
     }
 }

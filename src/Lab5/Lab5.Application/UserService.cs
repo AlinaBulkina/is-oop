@@ -16,7 +16,7 @@ internal class UserService : IUserService
         _currentClientManager = currentClientManager;
     }
 
-    public Task<LoginResult> Login(string accountNumber, string accountPin)
+    public Task<LoginResult> Login(long accountNumber, long accountPin)
     {
         User? user = _repository.FindAccountByNumberAndPin(accountNumber, accountPin);
 

@@ -9,15 +9,14 @@ namespace Lab5.Infrastructure.DataAccess.Repositories;
 public class AccountRepository : IAccountRepository
 {
     private readonly IPostgresConnectionProvider _connectionProvider;
-    private readonly string _systemPassword;
+    private readonly string _systemPassword = "qwerty";
 
-    public AccountRepository(IPostgresConnectionProvider connectionProvider, string systemPassword)
+    public AccountRepository(IPostgresConnectionProvider connectionProvider)
     {
         _connectionProvider = connectionProvider;
-        _systemPassword = systemPassword;
     }
 
-    public User? FindAccountByNumberAndPin(string number, string pin)
+    public User? FindAccountByNumberAndPin(long number, long pin)
     {
         const string sql = """
                            select account_number, account_pin
@@ -36,7 +35,7 @@ public class AccountRepository : IAccountRepository
 #pragma warning disable CA2000
         using NpgsqlCommand command = new NpgsqlCommand(sql, connection)
 #pragma warning restore CA2000
-            .AddParameter("account_number", number);
+            .AddParameter("number", number).AddParameter("pin", pin);
 
         using NpgsqlDataReader reader = command.ExecuteReader();
 
@@ -54,5 +53,24 @@ public class AccountRepository : IAccountRepository
         }
 
         return new Admin();
+    }
+
+    public void AddAccount(long number, long pin)
+    {
+        const string sql = """
+                           insert into accounts(account_number, account_pin) values(:number, :pin)
+                           """;
+
+#pragma warning disable CA2012
+        NpgsqlConnection connection = _connectionProvider
+            .GetConnectionAsync(default)
+#pragma warning restore CA2012
+            .GetAwaiter()
+            .GetResult();
+
+#pragma warning disable CA2000
+        using NpgsqlCommand command = new NpgsqlCommand(sql, connection).
+#pragma warning restore CA2000
+            AddParameter("number", number).AddParameter("pin", pin);
     }
 }

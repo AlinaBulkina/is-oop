@@ -12,6 +12,7 @@
     <PackageVersion Include="Itmo.Dev.Platform.Postgres" Version="1.1.75" />
     <PackageVersion Include="Itmo.Dev.Platform.Testing" Version="1.0.75" />
     <PackageVersion Include="Microsoft.Data.Sqlite" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />

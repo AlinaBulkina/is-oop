@@ -16,16 +16,21 @@ public class AdminService : IAdminService
         _currentClientManager = currentClientManager;
     }
 
-    public LoginResult Login(string systemPassword)
+    public Task<LoginResult> Login(string systemPassword)
     {
         Admin? admin = _repository.CheckSystemPassword(systemPassword);
 
         if (admin is null)
         {
-            return new LoginResult.WrongSystemPassword();
+            return Task.FromResult<LoginResult>(new LoginResult.WrongAccountNumberOrPin());
         }
 
         _currentClientManager.Client = admin;
-        return new LoginResult.Success();
+        return Task.FromResult<LoginResult>(new LoginResult.Success());
+    }
+
+    public void AddAccount(long accountNumber, long accountPin)
+    {
+        _repository.AddAccount(accountNumber, accountPin);
     }
 }

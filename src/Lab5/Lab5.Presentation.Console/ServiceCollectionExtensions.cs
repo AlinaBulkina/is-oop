@@ -9,7 +9,9 @@ public static class ServiceCollectionExtensions
     {
         collection.AddScoped<ScenarioRunner>();
 
-        collection.AddScoped<IScenarioProvider, LoginScenarioProvider>();
+        collection.AddScoped<IScenarioProvider, LoginAsUserScenarioProvider>();
+        collection.AddScoped<IScenarioProvider, LoginAsAdminScenarioProvider>();
+        collection.AddScoped<IScenarioProvider, AddAccountScenarioProvider>();
 
         return collection;
     }
